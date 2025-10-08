@@ -1,0 +1,26 @@
+#ifndef FEATURE_BASE_INCLUDED
+#define FEATURE_BASE_INCLUDED
+
+#include "efe/core/common.h"
+#include "efe/pefile.h"
+#include "efe/featurehasher.h"
+
+/**
+ * Base class from which each feature type may inherit
+ */
+class FeatureType {
+public:
+    virtual char const* getName() const = 0;
+
+    virtual size_t getMaxDim() const = 0;
+
+    virtual void reset(feature_t* output, PEFile const& peFile) = 0;
+
+    virtual void start(feature_t* output, PEFile const& peFile) = 0;
+
+    virtual void reduce(feature_t* output, PEFile const& peFile, size_t bufOffset, uint8_t const* buf, size_t bufSize) = 0;
+
+    virtual void finalize(feature_t* output, PEFile const& peFile) = 0;
+};
+
+#endif // FEATURE_BASE_INCLUDED
